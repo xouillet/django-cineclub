@@ -23,7 +23,9 @@ class CinephileRequiredMixin(UserPassesTestMixin):
             return False
         if Cinephile.objects.filter(user=self.request.user, actif=True).exists():
             return True
-        messages.error(self.request, "Vous ne faites pas partie du cinéclub… Parlez-en à Nim :)")
+        messages.error(
+            self.request, "Vous ne faites pas partie du cinéclub… Parlez-en à l'admin du site :)"
+        )
         return False
 
 
@@ -32,8 +34,8 @@ def ics(request):
     domain = get_current_site(request).domain
     cal.add("prodid", "-//cinenim//saurel.me//")
     cal.add("version", "2.0")
-    cal.add("summary", "CinéNim")
-    cal.add("x-wr-calname", f"CinéNim {domain}")
+    cal.add("summary", f"{settings.CINECLUB_NAME}")
+    cal.add("x-wr-calname", f"{settings.CINECLUB_NAME} {domain}")
     cal.add("x-wr-timezone", settings.TIME_ZONE)
     cal.add("calscale", "GREGORIAN")
 
@@ -47,7 +49,7 @@ def ics(request):
             event.add("summary", soiree.favoris)
             event.add("description", soiree.favoris.description)
         else:
-            event.add("summary", "CinéNim")
+            event.add("summary", f"{settings.CINECLUB_NAME}")
         if soiree.hote is not None:
             event.add("organizer", f"CN={soiree.hote}:mailto:{soiree.hote.email}")
             event.add("location", soiree.hote.cinephile.adresse)
@@ -160,7 +162,7 @@ class DTWUpdateView(CinephileRequiredMixin, UpdateView):
             if soiree.hote == request.user:
                 messages.error(
                     request,
-                    "Si tu hébèrges une soirée, tu y vas… Supprime la soirée, ou contacte Nim.",
+                    "Si tu hébèrges une soirée, tu y vas… Supprime la soirée, ou contacte l'admin du site.",
                 )
                 return redirect("cine:home")
             request.user.cinephile.soirees.remove(soiree)

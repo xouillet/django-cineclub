@@ -1,4 +1,4 @@
-# CinéNim
+# CineClub
 [![Build Status](https://travis-ci.org/nim65s/django-cineclub.svg?branch=master)](https://travis-ci.org/nim65s/django-cineclub)
 [![Coverage Status](https://coveralls.io/repos/github/nim65s/django-cineclub/badge.svg?branch=master)](https://coveralls.io/github/nim65s/django-cineclub?branch=master)
 

@@ -144,7 +144,7 @@ class Soiree(TimeStampedModel):
         presents = ", ".join([cinephile.user.username for cinephile in self.cinephile_set.all()])
         mails = ",".join([cinephile.user.email for cinephile in self.cinephile_set.all()])
 
-        subject = urlquote(f"[CinéNim] {self} chez {self.hote}")
+        subject = urlquote(f"[{settings.CINECLUB_NAME}] {self} chez {self.hote}")
         return mark_safe(
             f'{presents} – <a href="mailto:{mails}?subject={subject}">Leur envoyer un mail</a>'
         )

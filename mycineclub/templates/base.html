@@ -1,8 +1,8 @@
 {% extends 'ndh.html' %}
 
 
-{% block pagetitle %}CinéNim Test Site{% endblock %}
-{% block sitetitle %}CinéNim{% endblock %}
+{% block pagetitle %}{{ cineclub_name }} Test Site{% endblock %}
+{% block sitetitle %}{{ cineclub_name }}{% endblock %}
 {% block navbarleft %}
 <li><a href="{% url 'cine:home' %}">Home</a></li>
 <li><a href="{% url 'cine:films' %}">Films</a></li>
